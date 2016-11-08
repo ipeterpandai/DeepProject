@@ -1,4 +1,8 @@
 # DeepProject
 Sub-Goals in Q-Learning Project 
 
-Download all files into one folder and run the dqn_agent.py in the terminal
+Primary file is the DQN.py
+
+Extra files are to run another Q Learner
+
+
