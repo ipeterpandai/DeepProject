@@ -12,9 +12,9 @@ H = 200
 H2 = 200
 batch_number = 500
 gamma = 0.999
-num_of_ticks_between_q_copies = 1000
+num_of_ticks_between_q_copies = 500
 explore_decay = 0.9995
-min_explore = 0.05
+min_explore = 0.005
 max_steps = 199
 max_episodes = 1500
 memory_size = 100000
@@ -93,6 +93,8 @@ if __name__ == '__main__':
     episode_number = 0
     episode_reward = 0
     reward_sum = 0
+    sub_goal = 0
+    dir = input('Enter left or right: ')
 
     xmax = 1
     ymax = 1
@@ -124,18 +126,40 @@ if __name__ == '__main__':
                     # print "T: {} S {}".format(ticks, state)
                     env.render()
 
-                #if explore > random.random():
-                #   action = env.action_space.sample()
+                if explore > random.random():
+                   action = env.action_space.sample()
                 else:
                     # get action from policy
                     q = sess.run(Q, feed_dict={states_placeholder: np.array([state])})[0]
                     action = np.argmax(q)
                     # print action
+
+
                 explore = max(explore * explore_decay, min_explore)
                 action = env.action_space.sample()
-                new_state, reward, done, _ = env.step(action)
-                reward_sum += reward
-                    # print reward
+
+
+                #Need to figure how to create states to go left or right
+                
+
+
+
+
+                #Creating subgoal here
+                #Asking for left or right direction
+                #If Right make the rewards higher for the right side and less for the left
+                #If Left make the rewards higher for the left side and less for the right
+
+                if dir = 'left'
+                    sub_goal = sub_goal -1.0
+                    new_state, reward, done, _ = env.step(action)
+                    state.append(sub_goal)
+                    reward_sum += reward
+                if dir = 'right'
+                    state.append(sub_goal)
+                    new_state, reward, done, _ = env.step(action)
+                    sub_goal = sub_goal +1.0
+                    reward_sum += reward
 
                 D.append([state, action, reward, new_state, done])
                 if len(D) > memory_size:
